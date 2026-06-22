@@ -1,0 +1,159 @@
+{
+  "info": {
+    "name": "Restaurante Microservicios - Collection",
+    "description": "Colección completa de endpoints para los 10 microservicios del restaurante",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Platos Service (8001)",
+      "item": [
+        {
+          "name": "Crear Plato",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Pasta Carbonara\",\n  \"descripcion\": \"Pasta italiana tradicional\",\n  \"precio\": 12.99,\n  \"categoria\": \"Pasta\",\n  \"tiempoPreparacion\": 15\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8001/api/v1/platos",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8001",
+              "path": ["api", "v1", "platos"]
+            }
+          }
+        },
+        {
+          "name": "Obtener Plato",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8001/api/v1/platos/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8001",
+              "path": ["api", "v1", "platos", "1"]
+            }
+          }
+        },
+        {
+          "name": "Listar Platos",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8001/api/v1/platos",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8001",
+              "path": ["api", "v1", "platos"]
+            }
+          }
+        },
+        {
+          "name": "Platos Disponibles",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8001/api/v1/platos/disponibles",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8001",
+              "path": ["api", "v1", "platos", "disponibles"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Pedidos Service (8002)",
+      "item": [
+        {
+          "name": "Crear Pedido",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"clienteId\": 1,\n  \"detalles\": [\n    {\n      \"platoId\": 1,\n      \"cantidad\": 2\n    }\n  ],\n  \"notas\": \"Sin picante\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8002/api/v1/pedidos",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8002",
+              "path": ["api", "v1", "pedidos"]
+            }
+          }
+        },
+        {
+          "name": "Listar Pedidos",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8002/api/v1/pedidos",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8002",
+              "path": ["api", "v1", "pedidos"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Clientes Service (8003)",
+      "item": [
+        {
+          "name": "Crear Cliente",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Juan Pérez\",\n  \"email\": \"juan@email.com\",\n  \"telefono\": \"3001234567\",\n  \"direccion\": \"Calle 123 #456\",\n  \"documento\": \"12345678\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8003/api/v1/clientes",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8003",
+              "path": ["api", "v1", "clientes"]
+            }
+          }
+        },
+        {
+          "name": "Listar Clientes",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8003/api/v1/clientes",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8003",
+              "path": ["api", "v1", "clientes"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
+

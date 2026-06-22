@@ -1,0 +1,131 @@
+<html>
+<head>
+<title>arquitectura.txt</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #bcbec4;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+arquitectura.txt</font>
+</center></td></tr></table>
+<pre><span class="s0">EVALUACION PARCIAL 2</span>
+<span class="s0">Estudiante: Alejandro Velasquez</span>
+<span class="s0">Fecha: 2026-05-18</span>
+<span class="s0">Proyecto: Restaurante - Sistema de Microservicios</span>
+<span class="s0">Descripcion: 10 microservicios independientes con Spring Boot 3.3, Java 21, JPA/Hibernate, MySQL</span>
+
+<span class="s0">===================================================</span>
+
+
+
+<span class="s0">SERVICIOS IMPLEMENTADOS</span>
+
+<span class="s0">1. config-server (8888) - Config Server</span>
+<span class="s0">2. platos-service (8001) - Menu</span>
+<span class="s0">3. pedidos-service (8002) - Ordenes</span>
+<span class="s0">4. clientes-service (8003) - Clientes</span>
+<span class="s0">5. pagos-service (8004) - Pagos</span>
+<span class="s0">6. inventario-service (8005) - Stock</span>
+<span class="s0">7. mesas-service (8006) - Mesas</span>
+<span class="s0">8. empleados-service (8007) - Empleados</span>
+<span class="s0">9. notificaciones-service (8008) - Notificaciones</span>
+<span class="s0">10. reportes-service (8009) - Reportes</span>
+
+<span class="s0">Paso 1: Crear bases de datos</span>
+  <span class="s0">Ejecutar: DATABASE_SETUP.sql en MySQL</span>
+<span class="s0">Paso 2: Iniciar servicios (en terminales independientes)</span>
+  <span class="s0">1. cd config-server &amp;&amp; mvn spring-boot:run</span>
+  <span class="s0">2. cd platos-service &amp;&amp; mvn spring-boot:run</span>
+  <span class="s0">3. cd pedidos-service &amp;&amp; mvn spring-boot:run</span>
+  <span class="s0">... (continuar para los 7 restantes)</span>
+<span class="s0">service/</span>
+  <span class="s0">PlatoService.java (interfaz)</span>
+  <span class="s0">PlatoServiceImpl.java (implementacion)</span>
+  <span class="s0">- crearPlato()</span>
+  <span class="s0">- obtenerPlato()</span>
+  <span class="s0">- listarPlatos()</span>
+  <span class="s0">- actualizarPlato()</span>
+  <span class="s0">- eliminarPlato()</span>
+<span class="s0">repository/</span>
+  <span class="s0">PlatoRepository.java extends JpaRepository</span>
+  <span class="s0">- findAll(), findById(), save(), delete()</span>
+<span class="s0">dto/</span>
+  <span class="s0">PlatoDTO.java</span>
+  <span class="s0">- Validaciones: @NotBlank, @Positive</span>
+  <span class="s0">- Separada de entidad</span>
+<span class="s0">entity/</span>
+  <span class="s0">Plato.java</span>
+  <span class="s0">- @Entity, @Id, @GeneratedValue</span>
+  <span class="s0">- Mapeo a tabla platos</span>
+<span class="s0">exception/</span>
+  <span class="s0">GlobalExceptionHandler.java</span>
+  <span class="s0">- @ControllerAdvice</span>
+  <span class="s0">- Maneja excepciones globalmente</span>
+  <span class="s0">- Retorna ErrorResponse con status HTTP</span>
+
+
+<span class="s0">Implementadas en DTOs:</span>
+
+<span class="s0">@NotBlank - Campos requeridos</span>
+<span class="s0">@NotNull - Valores no nulos</span>
+<span class="s0">@Positive - Valores positivos</span>
+<span class="s0">@Email - Formato email</span>
+<span class="s0">@Size - Limites de longitud</span>
+<span class="s0">@Min / @Max - Rangos numericos</span>
+
+<span class="s0">Manejo:</span>
+  <span class="s0">- Validacion automatica en controllers</span>
+  <span class="s0">- Respuesta: 400 Bad Request con detalle de campos</span>
+  <span class="s0">- Mensaje: JSON estructurado con errores</span>
+
+<span class="s0">LOGGING</span>
+<span class="s0">Configuracion</span>
+<span class="s0">SLF4J - Abstraction layer</span>
+<span class="s0">Logback - Implementacion</span>
+<span class="s0">Logstash Encoder - JSON structurado</span>
+
+<span class="s0">Ubicacion: logs/[servicio].json</span>
+
+<span class="s0">Ejemplo de log:</span>
+<span class="s0">{</span>
+  <span class="s0">&quot;@timestamp&quot;: &quot;2026-05-18T10:15:32Z&quot;,</span>
+  <span class="s0">&quot;level&quot;: &quot;INFO&quot;,</span>
+  <span class="s0">&quot;service&quot;: &quot;platos-service&quot;,</span>
+  <span class="s0">&quot;message&quot;: &quot;Plato creado exitosamente&quot;,</span>
+  <span class="s0">&quot;logger_name&quot;: &quot;com.restaurante.platos.service.PlatoServiceImpl&quot;,</span>
+  <span class="s0">&quot;thread_name&quot;: &quot;http-nio-8001-exec-1&quot;</span>
+<span class="s0">}</span>
+
+<span class="s0">Rotacion: Diaria + por tamaño (10MB)</span>
+
+<span class="s0">===================================================</span>
+
+<span class="s0">COMUNICACION INTER-MICROSERVICIOS</span>
+
+<span class="s0">Implementada en pedidos-service:</span>
+
+<span class="s0">Configuracion:</span>
+  <span class="s0">WebClient bean con baseUrl</span>
+  <span class="s0">Configurable por environment</span>
+
+<span class="s0">Uso:</span>
+  <span class="s0">WebClient.get()</span>
+    <span class="s0">.uri(&quot;/api/v1/platos/{id}&quot;, platoId)</span>
+    <span class="s0">.retrieve()</span>
+    <span class="s0">.bodyToMono(PlatoDTO.class)</span>
+    <span class="s0">.block(Duration.ofSeconds(5))</span>
+
+<span class="s0">Manejo de errores:</span>
+  <span class="s0">try-catch</span>
+  <span class="s0">Timeout: 5 segundos</span>
+  <span class="s0">Logging de fallos</span>
+  <span class="s0">Respuesta controlada</span>
+
+
+</pre>
+</body>
+</html>

@@ -1,0 +1,136 @@
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        # Platos Service
+        - id: platos-service
+          uri: http://localhost:8001
+          predicates:
+            - Path=/api/v1/platos/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: platosCircuitBreaker
+                fallbackUri: forward:/fallback/platos
+
+        # Pedidos Service
+        - id: pedidos-service
+          uri: http://localhost:8002
+          predicates:
+            - Path=/api/v1/pedidos/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: pedidosCircuitBreaker
+                fallbackUri: forward:/fallback/pedidos
+
+        # Clientes Service
+        - id: clientes-service
+          uri: http://localhost:8003
+          predicates:
+            - Path=/api/v1/clientes/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: clientesCircuitBreaker
+                fallbackUri: forward:/fallback/clientes
+
+        # Pagos Service
+        - id: pagos-service
+          uri: http://localhost:8004
+          predicates:
+            - Path=/api/v1/pagos/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: pagosCircuitBreaker
+                fallbackUri: forward:/fallback/pagos
+
+        # Inventario Service
+        - id: inventario-service
+          uri: http://localhost:8005
+          predicates:
+            - Path=/api/v1/inventario/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: inventarioCircuitBreaker
+                fallbackUri: forward:/fallback/inventario
+
+        # Mesas Service
+        - id: mesas-service
+          uri: http://localhost:8006
+          predicates:
+            - Path=/api/v1/mesas/**,/api/v1/reservas/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: mesasCircuitBreaker
+                fallbackUri: forward:/fallback/mesas
+
+        # Empleados Service
+        - id: empleados-service
+          uri: http://localhost:8007
+          predicates:
+            - Path=/api/v1/empleados/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: empleadosCircuitBreaker
+                fallbackUri: forward:/fallback/empleados
+
+        # Notificaciones Service
+        - id: notificaciones-service
+          uri: http://localhost:8008
+          predicates:
+            - Path=/api/v1/notificaciones/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: notificacionesCircuitBreaker
+                fallbackUri: forward:/fallback/notificaciones
+
+        # Reportes Service
+        - id: reportes-service
+          uri: http://localhost:8009
+          predicates:
+            - Path=/api/v1/reportes/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: reportesCircuitBreaker
+                fallbackUri: forward:/fallback/reportes
+
+      # Global CORS Configuration
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - PATCH
+              - OPTIONS
+            allowedHeaders: "*"
+            maxAge: 3600
+
+server:
+  port: 8080
+
+# Logging
+logging:
+  level:
+    root: INFO
+    org.springframework.cloud.gateway: DEBUG
+    org.springframework.web: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+
+# Spring Cloud Config
+spring.config.import: optional:configserver:
+spring.cloud.config.import-check.enabled: false
+spring.cloud.compatibility-verifier.enabled: false

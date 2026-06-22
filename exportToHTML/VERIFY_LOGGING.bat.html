@@ -1,0 +1,121 @@
+<html>
+<head>
+<title>VERIFY_LOGGING.bat</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #bcbec4;}
+.s1 { color: #cf8e6d;}
+.s2 { color: #bcbec4;}
+.s3 { color: #7a7e85;}
+.s4 { color: #6aab73;}
+.s5 { color: #c77dbb; font-style: italic;}
+.s6 { color: #2aacb8; font-style: italic;}
+.s7 { color: #cf8e6d; font-style: italic;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+VERIFY_LOGGING.bat</font>
+</center></td></tr></table>
+<pre><span class="s0">@</span><span class="s1">echo off</span>
+<span class="s1">REM </span><span class="s3">Script de Verificación de Logging 
+</span><span class="s1">REM </span><span class="s3">Ejecuta: VERIFY_LOGGING.bat 
+</span>
+<span class="s1">echo</span><span class="s2">. 
+</span><span class="s1">echo </span><span class="s2">======================================== 
+</span><span class="s1">echo  </span><span class="s2">VERIFICACION DE LOGGING 
+</span><span class="s1">echo </span><span class="s2">======================================== 
+</span><span class="s1">echo</span><span class="s2">. 
+</span>
+<span class="s1">setlocal enabledelayedexpansion</span>
+
+<span class="s1">REM </span><span class="s3">Verificar que exista pom.xml padre 
+</span><span class="s1">echo </span><span class="s2">[1/4] Verificando dependencia en pom.xml... 
+</span><span class="s1">findstr </span><span class="s2">/M </span><span class="s0">&quot;</span><span class="s4">logstash-logback-encoder</span><span class="s0">&quot; </span><span class="s2">pom.xml </span><span class="s0">&gt; </span><span class="s5">nul</span>
+<span class="s1">if </span><span class="s0">%errorlevel% equ </span><span class="s6">0 </span><span class="s0">(</span>
+    <span class="s1">echo       </span><span class="s2">✓ Dependencia Logstash Logback Encoder encontrada 
+</span><span class="s0">) </span><span class="s1">else </span><span class="s0">(</span>
+    <span class="s1">echo       </span><span class="s2">✗ ERROR: Dependencia NO encontrada 
+</span><span class="s0">)</span>
+
+<span class="s1">echo</span><span class="s2">. 
+</span>
+<span class="s1">REM </span><span class="s3">Verificar logback-spring.xml en cada servicio 
+</span><span class="s1">echo </span><span class="s2">[2/4] Verificando archivos logback-spring.xml... 
+</span>
+<span class="s1">set </span><span class="s0">servicios=</span><span class="s2">config-server platos-service pedidos-service clientes-service pagos-service inventario-service mesas-service empleados-service notificaciones-service reportes-service 
+</span>
+<span class="s1">for </span><span class="s0">%%s </span><span class="s1">in </span><span class="s0">(%servicios%) </span><span class="s1">do </span><span class="s0">(</span>
+    <span class="s1">if exist </span><span class="s0">&quot;</span><span class="s7">%%</span><span class="s4">s\src\main\resources\logback-spring.xml</span><span class="s0">&quot; (</span>
+        <span class="s1">echo       </span><span class="s2">✓ </span><span class="s7">%%</span><span class="s2">s - logback-spring.xml encontrado 
+    </span><span class="s0">) </span><span class="s1">else </span><span class="s0">(</span>
+        <span class="s1">echo       </span><span class="s2">✗ </span><span class="s7">%%</span><span class="s2">s - ERROR: logback-spring.xml NO encontrado 
+    </span><span class="s0">)</span>
+<span class="s0">)</span>
+
+<span class="s1">echo</span><span class="s2">. 
+</span>
+<span class="s1">REM </span><span class="s3">Verificar application.properties con logging.file.name 
+</span><span class="s1">echo </span><span class="s2">[3/4] Verificando configuración en application.properties... 
+</span>
+<span class="s1">for </span><span class="s0">%%s </span><span class="s1">in </span><span class="s0">(%servicios%) </span><span class="s1">do </span><span class="s0">(</span>
+    <span class="s1">findstr </span><span class="s0">&quot;</span><span class="s4">logging.file.name</span><span class="s0">&quot; &quot;</span><span class="s7">%%</span><span class="s4">s\src\main\resources\application.properties</span><span class="s0">&quot; &gt; </span><span class="s5">nul</span>
+    <span class="s1">if </span><span class="s0">!errorlevel! equ </span><span class="s6">0 </span><span class="s0">(</span>
+        <span class="s1">echo       </span><span class="s2">✓ </span><span class="s7">%%</span><span class="s2">s - Configuración de logs encontrada 
+    </span><span class="s0">) </span><span class="s1">else </span><span class="s0">(</span>
+        <span class="s1">echo       </span><span class="s2">✗ </span><span class="s7">%%</span><span class="s2">s - ERROR: Configuración NO encontrada 
+    </span><span class="s0">)</span>
+<span class="s0">)</span>
+
+<span class="s1">echo</span><span class="s2">. 
+</span>
+<span class="s1">REM </span><span class="s3">Verificar documentación 
+</span><span class="s1">echo </span><span class="s2">[4/4] Verificando documentación... 
+</span>
+<span class="s1">if exist </span><span class="s0">&quot;</span><span class="s4">GUIA_LOGGING.md</span><span class="s0">&quot; (</span>
+    <span class="s1">echo       </span><span class="s2">✓ GUIA_LOGGING.md encontrado 
+</span><span class="s0">) </span><span class="s1">else </span><span class="s0">(</span>
+    <span class="s1">echo       </span><span class="s2">✗ ERROR: GUIA_LOGGING.md NO encontrado 
+</span><span class="s0">)</span>
+
+<span class="s1">if exist </span><span class="s0">&quot;</span><span class="s4">EJEMPLO_LOGGING_IMPLEMENTADO.md</span><span class="s0">&quot; (</span>
+    <span class="s1">echo       </span><span class="s2">✓ EJEMPLO_LOGGING_IMPLEMENTADO.md encontrado 
+</span><span class="s0">) </span><span class="s1">else </span><span class="s0">(</span>
+    <span class="s1">echo       </span><span class="s2">✗ ERROR: EJEMPLO_LOGGING_IMPLEMENTADO.md NO encontrado 
+</span><span class="s0">)</span>
+
+<span class="s1">if exist </span><span class="s0">&quot;</span><span class="s4">RESUMEN_IMPLEMENTACION_LOGGING.md</span><span class="s0">&quot; (</span>
+    <span class="s1">echo       </span><span class="s2">✓ RESUMEN_IMPLEMENTACION_LOGGING.md encontrado 
+</span><span class="s0">) </span><span class="s1">else </span><span class="s0">(</span>
+    <span class="s1">echo       </span><span class="s2">✗ ERROR: RESUMEN_IMPLEMENTACION_LOGGING.md NO encontrado 
+</span><span class="s0">)</span>
+
+<span class="s1">echo</span><span class="s2">. 
+</span><span class="s1">echo </span><span class="s2">======================================== 
+</span><span class="s1">echo</span><span class="s2">. 
+</span><span class="s1">echo </span><span class="s2">Para compilar y verificar logs en tiempo real: 
+</span><span class="s1">echo</span><span class="s2">. 
+</span><span class="s1">echo </span><span class="s2">1. Compila el proyecto: 
+</span><span class="s1">echo    </span><span class="s2">mvn clean install 
+</span><span class="s1">echo</span><span class="s2">. 
+</span><span class="s1">echo </span><span class="s2">2. Ejecuta un servicio: 
+</span><span class="s1">echo    </span><span class="s2">cd platos-service 
+</span><span class="s1">echo    </span><span class="s2">mvn spring-boot:run 
+</span><span class="s1">echo</span><span class="s2">. 
+</span><span class="s1">echo </span><span class="s2">3. En otra terminal, ve los logs: 
+</span><span class="s1">echo    </span><span class="s2">tail -f logs/platos-service.json 
+</span><span class="s1">echo</span><span class="s2">. 
+</span><span class="s1">echo </span><span class="s2">4. En otra terminal, haz una petición: 
+</span><span class="s1">echo    </span><span class="s2">curl -X GET http://localhost:8001/api/v1/platos 
+</span><span class="s1">echo</span><span class="s2">. 
+</span><span class="s1">echo </span><span class="s2">Los logs aparecerán en JSON en la terminal y en los archivos. 
+</span><span class="s1">echo </span><span class="s2">======================================== 
+</span><span class="s1">echo</span><span class="s2">. 
+</span>
+<span class="s1">pause</span>
+
+</pre>
+</body>
+</html>

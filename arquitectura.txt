@@ -1,0 +1,114 @@
+EVALUACION PARCIAL 2
+Estudiante: Alejandro Velasquez
+Fecha: 2026-05-18
+Proyecto: Restaurante - Sistema de Microservicios
+Descripcion: 10 microservicios independientes con Spring Boot 3.3, Java 21, JPA/Hibernate, MySQL
+
+===================================================
+
+
+
+SERVICIOS IMPLEMENTADOS
+
+1. config-server (8888) - Config Server
+2. platos-service (8001) - Menu
+3. pedidos-service (8002) - Ordenes
+4. clientes-service (8003) - Clientes
+5. pagos-service (8004) - Pagos
+6. inventario-service (8005) - Stock
+7. mesas-service (8006) - Mesas
+8. empleados-service (8007) - Empleados
+9. notificaciones-service (8008) - Notificaciones
+10. reportes-service (8009) - Reportes
+
+Paso 1: Crear bases de datos
+  Ejecutar: DATABASE_SETUP.sql en MySQL
+Paso 2: Iniciar servicios (en terminales independientes)
+  1. cd config-server && mvn spring-boot:run
+  2. cd platos-service && mvn spring-boot:run
+  3. cd pedidos-service && mvn spring-boot:run
+  ... (continuar para los 7 restantes)
+service/
+  PlatoService.java (interfaz)
+  PlatoServiceImpl.java (implementacion)
+  - crearPlato()
+  - obtenerPlato()
+  - listarPlatos()
+  - actualizarPlato()
+  - eliminarPlato()
+repository/
+  PlatoRepository.java extends JpaRepository
+  - findAll(), findById(), save(), delete()
+dto/
+  PlatoDTO.java
+  - Validaciones: @NotBlank, @Positive
+  - Separada de entidad
+entity/
+  Plato.java
+  - @Entity, @Id, @GeneratedValue
+  - Mapeo a tabla platos
+exception/
+  GlobalExceptionHandler.java
+  - @ControllerAdvice
+  - Maneja excepciones globalmente
+  - Retorna ErrorResponse con status HTTP
+
+
+Implementadas en DTOs:
+
+@NotBlank - Campos requeridos
+@NotNull - Valores no nulos
+@Positive - Valores positivos
+@Email - Formato email
+@Size - Limites de longitud
+@Min / @Max - Rangos numericos
+
+Manejo:
+  - Validacion automatica en controllers
+  - Respuesta: 400 Bad Request con detalle de campos
+  - Mensaje: JSON estructurado con errores
+
+LOGGING
+Configuracion
+SLF4J - Abstraction layer
+Logback - Implementacion
+Logstash Encoder - JSON structurado
+
+Ubicacion: logs/[servicio].json
+
+Ejemplo de log:
+{
+  "@timestamp": "2026-05-18T10:15:32Z",
+  "level": "INFO",
+  "service": "platos-service",
+  "message": "Plato creado exitosamente",
+  "logger_name": "com.restaurante.platos.service.PlatoServiceImpl",
+  "thread_name": "http-nio-8001-exec-1"
+}
+
+Rotacion: Diaria + por tamaño (10MB)
+
+===================================================
+
+COMUNICACION INTER-MICROSERVICIOS
+
+Implementada en pedidos-service:
+
+Configuracion:
+  WebClient bean con baseUrl
+  Configurable por environment
+
+Uso:
+  WebClient.get()
+    .uri("/api/v1/platos/{id}", platoId)
+    .retrieve()
+    .bodyToMono(PlatoDTO.class)
+    .block(Duration.ofSeconds(5))
+
+Manejo de errores:
+  try-catch
+  Timeout: 5 segundos
+  Logging de fallos
+  Respuesta controlada
+
+

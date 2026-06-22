@@ -1,0 +1,102 @@
+<html>
+<head>
+<title>DATABASE_SETUP.sql</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #bcbec4;}
+.s1 { color: #cf8e6d;}
+.s2 { color: #6aab73;}
+.s3 { color: #2aacb8;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+DATABASE_SETUP.sql</font>
+</center></td></tr></table>
+<pre>
+<span class="s1">CREATE </span><span class="s0">DATABASE restaurante_platos </span><span class="s1">CHARACTER SET </span><span class="s0">utf8mb4 </span><span class="s1">COLLATE </span><span class="s0">utf8mb4_unicode_ci;</span>
+<span class="s1">CREATE </span><span class="s0">DATABASE restaurante_pedidos </span><span class="s1">CHARACTER SET </span><span class="s0">utf8mb4 </span><span class="s1">COLLATE </span><span class="s0">utf8mb4_unicode_ci;</span>
+<span class="s1">CREATE </span><span class="s0">DATABASE restaurante_clientes </span><span class="s1">CHARACTER SET </span><span class="s0">utf8mb4 </span><span class="s1">COLLATE </span><span class="s0">utf8mb4_unicode_ci;</span>
+<span class="s1">CREATE </span><span class="s0">DATABASE restaurante_pagos </span><span class="s1">CHARACTER SET </span><span class="s0">utf8mb4 </span><span class="s1">COLLATE </span><span class="s0">utf8mb4_unicode_ci;</span>
+<span class="s1">CREATE </span><span class="s0">DATABASE restaurante_inventario </span><span class="s1">CHARACTER SET </span><span class="s0">utf8mb4 </span><span class="s1">COLLATE </span><span class="s0">utf8mb4_unicode_ci;</span>
+<span class="s1">CREATE </span><span class="s0">DATABASE restaurante_mesas </span><span class="s1">CHARACTER SET </span><span class="s0">utf8mb4 </span><span class="s1">COLLATE </span><span class="s0">utf8mb4_unicode_ci;</span>
+<span class="s1">CREATE </span><span class="s0">DATABASE restaurante_empleados </span><span class="s1">CHARACTER SET </span><span class="s0">utf8mb4 </span><span class="s1">COLLATE </span><span class="s0">utf8mb4_unicode_ci;</span>
+<span class="s1">CREATE </span><span class="s0">DATABASE restaurante_notificaciones </span><span class="s1">CHARACTER SET </span><span class="s0">utf8mb4 </span><span class="s1">COLLATE </span><span class="s0">utf8mb4_unicode_ci;</span>
+<span class="s1">CREATE </span><span class="s0">DATABASE restaurante_reportes </span><span class="s1">CHARACTER SET </span><span class="s0">utf8mb4 </span><span class="s1">COLLATE </span><span class="s0">utf8mb4_unicode_ci;</span>
+
+<span class="s0">=======</span>
+
+
+<span class="s1">INSERT INTO </span><span class="s0">restaurante_platos.platos (nombre, descripcion, precio, categoria, disponible, tiempo_preparacion) </span><span class="s1">VALUES</span>
+<span class="s0">(</span><span class="s2">'Pasta Carbonara'</span><span class="s0">, </span><span class="s2">'Deliciosa pasta italiana con salsa de huevo y tocino'</span><span class="s0">, </span><span class="s3">12.99</span><span class="s0">, </span><span class="s2">'Pasta'</span><span class="s0">, </span><span class="s1">true</span><span class="s0">, </span><span class="s3">15</span><span class="s0">),</span>
+<span class="s0">(</span><span class="s2">'Pizza Margarita'</span><span class="s0">, </span><span class="s2">'Pizza con tomate, mozzarella y albahaca'</span><span class="s0">, </span><span class="s3">9.99</span><span class="s0">, </span><span class="s2">'Pizza'</span><span class="s0">, </span><span class="s1">true</span><span class="s0">, </span><span class="s3">20</span><span class="s0">),</span>
+<span class="s0">(</span><span class="s2">'Ensalada César'</span><span class="s0">, </span><span class="s2">'Ensalada fresca con aderezo César'</span><span class="s0">, </span><span class="s3">7.99</span><span class="s0">, </span><span class="s2">'Ensalada'</span><span class="s0">, </span><span class="s1">true</span><span class="s0">, </span><span class="s3">5</span><span class="s0">),</span>
+<span class="s0">(</span><span class="s2">'Bistec Argentino'</span><span class="s0">, </span><span class="s2">'Jugoso bistec a la parrilla'</span><span class="s0">, </span><span class="s3">18.99</span><span class="s0">, </span><span class="s2">'Carnes'</span><span class="s0">, </span><span class="s1">true</span><span class="s0">, </span><span class="s3">25</span><span class="s0">),</span>
+<span class="s0">(</span><span class="s2">'Salmón a la Mantequilla'</span><span class="s0">, </span><span class="s2">'Salmón fresco con salsa de mantequilla'</span><span class="s0">, </span><span class="s3">16.99</span><span class="s0">, </span><span class="s2">'Pescados'</span><span class="s0">, </span><span class="s1">true</span><span class="s0">, </span><span class="s3">22</span><span class="s0">);</span>
+
+
+<span class="s1">INSERT INTO </span><span class="s0">restaurante_clientes.clientes (nombre, email, telefono, direccion, documento, activo) </span><span class="s1">VALUES</span>
+<span class="s0">(</span><span class="s2">'Juan Pérez López'</span><span class="s0">, </span><span class="s2">'juan.perez@email.com'</span><span class="s0">, </span><span class="s2">'3001234567'</span><span class="s0">, </span><span class="s2">'Calle 10 #20-30, Bogotá'</span><span class="s0">, </span><span class="s2">'12345678'</span><span class="s0">, </span><span class="s1">true</span><span class="s0">),</span>
+<span class="s0">(</span><span class="s2">'María García Rodríguez'</span><span class="s0">, </span><span class="s2">'maria.garcia@email.com'</span><span class="s0">, </span><span class="s2">'3109876543'</span><span class="s0">, </span><span class="s2">'Carrera 5 #40-50, Bogotá'</span><span class="s0">, </span><span class="s2">'87654321'</span><span class="s0">, </span><span class="s1">true</span><span class="s0">),</span>
+<span class="s0">(</span><span class="s2">'Carlos Martínez Gómez'</span><span class="s0">, </span><span class="s2">'carlos.martinez@email.com'</span><span class="s0">, </span><span class="s2">'3159876543'</span><span class="s0">, </span><span class="s2">'Avenida 15 #60-70, Bogotá'</span><span class="s0">, </span><span class="s2">'11223344'</span><span class="s0">, </span><span class="s1">true</span><span class="s0">),</span>
+<span class="s0">(</span><span class="s2">'Laura López Sánchez'</span><span class="s0">, </span><span class="s2">'laura.lopez@email.com'</span><span class="s0">, </span><span class="s2">'3012345678'</span><span class="s0">, </span><span class="s2">'Calle 20 #30-40, Bogotá'</span><span class="s0">, </span><span class="s2">'55667788'</span><span class="s0">, </span><span class="s1">true</span><span class="s0">),</span>
+<span class="s0">(</span><span class="s2">'Roberto González Díaz'</span><span class="s0">, </span><span class="s2">'roberto.gonzalez@email.com'</span><span class="s0">, </span><span class="s2">'3204567890'</span><span class="s0">, </span><span class="s2">'Carrera 8 #50-60, Bogotá'</span><span class="s0">, </span><span class="s2">'99887766'</span><span class="s0">, </span><span class="s1">true</span><span class="s0">);</span>
+
+
+<span class="s1">INSERT INTO </span><span class="s0">restaurante_empleados.empleados (nombre, email, telefono, puesto, salario, tipo_contrato, fecha_ingreso, activo) </span><span class="s1">VALUES</span>
+<span class="s0">(</span><span class="s2">'Chef José Ramírez'</span><span class="s0">, </span><span class="s2">'jose.ramirez@restaurante.com'</span><span class="s0">, </span><span class="s2">'3001111111'</span><span class="s0">, </span><span class="s2">'Chef Ejecutivo'</span><span class="s0">, </span><span class="s3">3500.00</span><span class="s0">, </span><span class="s2">'TIEMPO_COMPLETO'</span><span class="s0">, </span><span class="s2">'2020-01-15'</span><span class="s0">, </span><span class="s1">true</span><span class="s0">),</span>
+<span class="s0">(</span><span class="s2">'Mesero Pedro Ruiz'</span><span class="s0">, </span><span class="s2">'pedro.ruiz@restaurante.com'</span><span class="s0">, </span><span class="s2">'3002222222'</span><span class="s0">, </span><span class="s2">'Mesero'</span><span class="s0">, </span><span class="s3">1200.00</span><span class="s0">, </span><span class="s2">'TIEMPO_COMPLETO'</span><span class="s0">, </span><span class="s2">'2022-03-20'</span><span class="s0">, </span><span class="s1">true</span><span class="s0">),</span>
+<span class="s0">(</span><span class="s2">'Cocinero Ana Castro'</span><span class="s0">, </span><span class="s2">'ana.castro@restaurante.com'</span><span class="s0">, </span><span class="s2">'3003333333'</span><span class="s0">, </span><span class="s2">'Cocinero'</span><span class="s0">, </span><span class="s3">1800.00</span><span class="s0">, </span><span class="s2">'TIEMPO_COMPLETO'</span><span class="s0">, </span><span class="s2">'2021-06-10'</span><span class="s0">, </span><span class="s1">true</span><span class="s0">),</span>
+<span class="s0">(</span><span class="s2">'Mesera Paula Díez'</span><span class="s0">, </span><span class="s2">'paula.diez@restaurante.com'</span><span class="s0">, </span><span class="s2">'3004444444'</span><span class="s0">, </span><span class="s2">'Mesera'</span><span class="s0">, </span><span class="s3">1200.00</span><span class="s0">, </span><span class="s2">'TIEMPO_PARCIAL'</span><span class="s0">, </span><span class="s2">'2023-02-05'</span><span class="s0">, </span><span class="s1">true</span><span class="s0">),</span>
+<span class="s0">(</span><span class="s2">'Gerente administrativo Roberto Vega'</span><span class="s0">, </span><span class="s2">'roberto.vega@restaurante.com'</span><span class="s0">, </span><span class="s2">'3005555555'</span><span class="s0">, </span><span class="s2">'Gerente'</span><span class="s0">, </span><span class="s3">2500.00</span><span class="s0">, </span><span class="s2">'TIEMPO_COMPLETO'</span><span class="s0">, </span><span class="s2">'2019-11-01'</span><span class="s0">, </span><span class="s1">true</span><span class="s0">);</span>
+
+<span class="s1">INSERT INTO </span><span class="s0">restaurante_inventario.ingredientes (nombre, descripcion, cantidad, unidad, costo, stock_minimo, disponible, categoria) </span><span class="s1">VALUES</span>
+<span class="s0">(</span><span class="s2">'Tomate'</span><span class="s0">, </span><span class="s2">'Tomate rojo fresco'</span><span class="s0">, </span><span class="s3">100</span><span class="s0">, </span><span class="s2">'kg'</span><span class="s0">, </span><span class="s3">0.50</span><span class="s0">, </span><span class="s3">20</span><span class="s0">, </span><span class="s1">true</span><span class="s0">, </span><span class="s2">'Vegetales'</span><span class="s0">),</span>
+<span class="s0">(</span><span class="s2">'Cebolla'</span><span class="s0">, </span><span class="s2">'Cebolla blanca grande'</span><span class="s0">, </span><span class="s3">80</span><span class="s0">, </span><span class="s2">'kg'</span><span class="s0">, </span><span class="s3">0.30</span><span class="s0">, </span><span class="s3">15</span><span class="s0">, </span><span class="s1">true</span><span class="s0">, </span><span class="s2">'Vegetales'</span><span class="s0">),</span>
+<span class="s0">(</span><span class="s2">'Ajo'</span><span class="s0">, </span><span class="s2">'Ajo fresco pelado'</span><span class="s0">, </span><span class="s3">50</span><span class="s0">, </span><span class="s2">'kg'</span><span class="s0">, </span><span class="s3">1.20</span><span class="s0">, </span><span class="s3">10</span><span class="s0">, </span><span class="s1">true</span><span class="s0">, </span><span class="s2">'Condimentos'</span><span class="s0">),</span>
+<span class="s0">(</span><span class="s2">'Queso Mozzarella'</span><span class="s0">, </span><span class="s2">'Queso fresco para pizza'</span><span class="s0">, </span><span class="s3">40</span><span class="s0">, </span><span class="s2">'kg'</span><span class="s0">, </span><span class="s3">5.00</span><span class="s0">, </span><span class="s3">10</span><span class="s0">, </span><span class="s1">true</span><span class="s0">, </span><span class="s2">'Lácteos'</span><span class="s0">),</span>
+<span class="s0">(</span><span class="s2">'Pasta Penne'</span><span class="s0">, </span><span class="s2">'Pasta italiana premium'</span><span class="s0">, </span><span class="s3">25</span><span class="s0">, </span><span class="s2">'kg'</span><span class="s0">, </span><span class="s3">1.50</span><span class="s0">, </span><span class="s3">5</span><span class="s0">, </span><span class="s1">true</span><span class="s0">, </span><span class="s2">'Pasta'</span><span class="s0">),</span>
+<span class="s0">(</span><span class="s2">'Salmón Fresco'</span><span class="s0">, </span><span class="s2">'Filete de salmón chileno'</span><span class="s0">, </span><span class="s3">15</span><span class="s0">, </span><span class="s2">'kg'</span><span class="s0">, </span><span class="s3">12.00</span><span class="s0">, </span><span class="s3">3</span><span class="s0">, </span><span class="s1">true</span><span class="s0">, </span><span class="s2">'Pescados'</span><span class="s0">),</span>
+<span class="s0">(</span><span class="s2">'Jamón Serrano'</span><span class="s0">, </span><span class="s2">'Jamón serrano ibérico'</span><span class="s0">, </span><span class="s3">8</span><span class="s0">, </span><span class="s2">'kg'</span><span class="s0">, </span><span class="s3">15.00</span><span class="s0">, </span><span class="s3">2</span><span class="s0">, </span><span class="s1">true</span><span class="s0">, </span><span class="s2">'Carnes ProcessedSet'</span><span class="s0">);</span>
+
+
+<span class="s1">INSERT INTO </span><span class="s0">restaurante_mesas.mesas (numero, capacidad, estado, ubicacion, activa) </span><span class="s1">VALUES</span>
+<span class="s0">(</span><span class="s2">'Mesa 1'</span><span class="s0">, </span><span class="s3">2</span><span class="s0">, </span><span class="s2">'DISPONIBLE'</span><span class="s0">, </span><span class="s2">'Ventana esquina'</span><span class="s0">, </span><span class="s1">true</span><span class="s0">),</span>
+<span class="s0">(</span><span class="s2">'Mesa 2'</span><span class="s0">, </span><span class="s3">2</span><span class="s0">, </span><span class="s2">'DISPONIBLE'</span><span class="s0">, </span><span class="s2">'Ventana lateral'</span><span class="s0">, </span><span class="s1">true</span><span class="s0">),</span>
+<span class="s0">(</span><span class="s2">'Mesa 3'</span><span class="s0">, </span><span class="s3">4</span><span class="s0">, </span><span class="s2">'DISPONIBLE'</span><span class="s0">, </span><span class="s2">'Centro local'</span><span class="s0">, </span><span class="s1">true</span><span class="s0">),</span>
+<span class="s0">(</span><span class="s2">'Mesa 4'</span><span class="s0">, </span><span class="s3">4</span><span class="s0">, </span><span class="s2">'DISPONIBLE'</span><span class="s0">, </span><span class="s2">'Pared izquierda'</span><span class="s0">, </span><span class="s1">true</span><span class="s0">),</span>
+<span class="s0">(</span><span class="s2">'Mesa 5'</span><span class="s0">, </span><span class="s3">6</span><span class="s0">, </span><span class="s2">'DISPONIBLE'</span><span class="s0">, </span><span class="s2">'Rincón VIP'</span><span class="s0">, </span><span class="s1">true</span><span class="s0">),</span>
+<span class="s0">(</span><span class="s2">'Mesa 6'</span><span class="s0">, </span><span class="s3">8</span><span class="s0">, </span><span class="s2">'DISPONIBLE'</span><span class="s0">, </span><span class="s2">'Salón privado'</span><span class="s0">, </span><span class="s1">true</span><span class="s0">),</span>
+<span class="s0">(</span><span class="s2">'Mesa 7'</span><span class="s0">, </span><span class="s3">3</span><span class="s0">, </span><span class="s2">'DISPONIBLE'</span><span class="s0">, </span><span class="s2">'Terraza'</span><span class="s0">, </span><span class="s1">true</span><span class="s0">),</span>
+<span class="s0">(</span><span class="s2">'Mesa 8'</span><span class="s0">, </span><span class="s3">2</span><span class="s0">, </span><span class="s2">'MANTENIMIENTO'</span><span class="s0">, </span><span class="s2">'Ventana principal'</span><span class="s0">, </span><span class="s1">true</span><span class="s0">);</span>
+
+
+
+<span class="s0">SHOW DATABASES </span><span class="s1">LIKE </span><span class="s2">'restaurante%'</span><span class="s0">;</span>
+
+<span class="s1">SELECT COUNT</span><span class="s0">(*) </span><span class="s1">as </span><span class="s2">'Total Platos' </span><span class="s1">FROM </span><span class="s0">restaurante_platos.platos;</span>
+<span class="s1">SELECT COUNT</span><span class="s0">(*) </span><span class="s1">as </span><span class="s2">'Total Clientes' </span><span class="s1">FROM </span><span class="s0">restaurante_clientes.clientes;</span>
+<span class="s1">SELECT COUNT</span><span class="s0">(*) </span><span class="s1">as </span><span class="s2">'Total Empleados' </span><span class="s1">FROM </span><span class="s0">restaurante_empleados.empleados;</span>
+<span class="s1">SELECT COUNT</span><span class="s0">(*) </span><span class="s1">as </span><span class="s2">'Total Ingredientes' </span><span class="s1">FROM </span><span class="s0">restaurante_inventario.ingredientes;</span>
+<span class="s1">SELECT COUNT</span><span class="s0">(*) </span><span class="s1">as </span><span class="s2">'Total Mesas' </span><span class="s1">FROM </span><span class="s0">restaurante_mesas.mesas;</span>
+
+
+
+<span class="s0">/*</span>
+
+<span class="s1">DROP </span><span class="s0">DATABASE restaurante_platos;</span>
+<span class="s1">DROP </span><span class="s0">DATABASE restaurante_pedidos;</span>
+<span class="s1">DROP </span><span class="s0">DATABASE restaurante_clientes;</span>
+<span class="s1">DROP </span><span class="s0">DATABASE restaurante_pagos;</span>
+<span class="s1">DROP </span><span class="s0">DATABASE restaurante_inventario;</span>
+<span class="s1">DROP </span><span class="s0">DATABASE restaurante_mesas;</span>
+<span class="s1">DROP </span><span class="s0">DATABASE restaurante_empleados;</span>
+<span class="s1">DROP </span><span class="s0">DATABASE restaurante_notificaciones;</span>
+<span class="s1">DROP </span><span class="s0">DATABASE restaurante_reportes;</span>
+<span class="s0">*/</span>
+
+</pre>
+</body>
+</html>
