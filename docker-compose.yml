@@ -1,4 +1,175 @@
 version: '3.8'
-services:
-  # MySQL eliminado - Los microservicios ahora usan H2 en memoria
 
+services:
+  # API Gateway
+  api-gateway:
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
+    container_name: api-gateway
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      LOGGING_LEVEL_ROOT: INFO
+    depends_on:
+      - platos-service
+      - pedidos-service
+      - clientes-service
+      - pagos-service
+      - inventario-service
+      - mesas-service
+      - empleados-service
+      - notificaciones-service
+      - reportes-service
+    networks:
+      - restaurante-network
+    restart: on-failure
+
+  # Platos Service
+  platos-service:
+    build:
+      context: ./platos-service
+      dockerfile: Dockerfile
+    container_name: platos-service
+    ports:
+      - "8001:8001"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SERVER_PORT: 8001
+      LOGGING_LEVEL_ROOT: INFO
+    networks:
+      - restaurante-network
+    restart: on-failure
+
+  # Pedidos Service
+  pedidos-service:
+    build:
+      context: ./pedidos-service
+      dockerfile: Dockerfile
+    container_name: pedidos-service
+    ports:
+      - "8002:8002"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SERVER_PORT: 8002
+      LOGGING_LEVEL_ROOT: INFO
+    networks:
+      - restaurante-network
+    restart: on-failure
+
+  # Clientes Service
+  clientes-service:
+    build:
+      context: ./clientes-service
+      dockerfile: Dockerfile
+    container_name: clientes-service
+    ports:
+      - "8003:8003"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SERVER_PORT: 8003
+      LOGGING_LEVEL_ROOT: INFO
+    networks:
+      - restaurante-network
+    restart: on-failure
+
+  # Pagos Service
+  pagos-service:
+    build:
+      context: ./pagos-service
+      dockerfile: Dockerfile
+    container_name: pagos-service
+    ports:
+      - "8004:8004"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SERVER_PORT: 8004
+      LOGGING_LEVEL_ROOT: INFO
+    networks:
+      - restaurante-network
+    restart: on-failure
+
+  # Inventario Service
+  inventario-service:
+    build:
+      context: ./inventario-service
+      dockerfile: Dockerfile
+    container_name: inventario-service
+    ports:
+      - "8005:8005"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SERVER_PORT: 8005
+      LOGGING_LEVEL_ROOT: INFO
+    networks:
+      - restaurante-network
+    restart: on-failure
+
+  # Mesas Service
+  mesas-service:
+    build:
+      context: ./mesas-service
+      dockerfile: Dockerfile
+    container_name: mesas-service
+    ports:
+      - "8006:8006"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SERVER_PORT: 8006
+      LOGGING_LEVEL_ROOT: INFO
+    networks:
+      - restaurante-network
+    restart: on-failure
+
+  # Empleados Service
+  empleados-service:
+    build:
+      context: ./empleados-service
+      dockerfile: Dockerfile
+    container_name: empleados-service
+    ports:
+      - "8007:8007"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SERVER_PORT: 8007
+      LOGGING_LEVEL_ROOT: INFO
+    networks:
+      - restaurante-network
+    restart: on-failure
+
+  # Notificaciones Service
+  notificaciones-service:
+    build:
+      context: ./notificaciones-service
+      dockerfile: Dockerfile
+    container_name: notificaciones-service
+    ports:
+      - "8008:8008"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SERVER_PORT: 8008
+      LOGGING_LEVEL_ROOT: INFO
+    networks:
+      - restaurante-network
+    restart: on-failure
+
+  # Reportes Service
+  reportes-service:
+    build:
+      context: ./reportes-service
+      dockerfile: Dockerfile
+    container_name: reportes-service
+    ports:
+      - "8009:8009"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SERVER_PORT: 8009
+      LOGGING_LEVEL_ROOT: INFO
+    networks:
+      - restaurante-network
+    restart: on-failure
+
+networks:
+  restaurante-network:
+    driver: bridge
